@@ -3,7 +3,7 @@
     "configurePresets": [
         {
             "name": "default-linux",
-            "generator": "ninja",
+            "generator": "Ninja",
             "binaryDir": "${sourceDir}/build",
             "cacheVariables": {
                 "CMAKE_TOOLCHAIN_FILE": "vcpkg/scripts/buildsystems/vcpkg.cmake"

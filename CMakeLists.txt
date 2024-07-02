@@ -10,9 +10,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS ON)
 
-# Add compiler option for EasyLogging++ to be thread-safe
-ADD_COMPILE_DEFINITIONS(ELPP_THREAD_SAFE)
-
 find_package(SFML COMPONENTS network graphics window system REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 find_package(ImGui-SFML CONFIG REQUIRED)
@@ -69,4 +66,4 @@ add_subdirectory(planszowker_server)
 # Testing
 enable_testing()
 add_subdirectory(functional_tests) # Functional tests
-# add_subdirectory(tests) # Unit tests - failing for some reason
+add_subdirectory(tests) # Unit tests - failing for some reason

@@ -128,12 +128,12 @@ void GameChoosingState::displayGameTile()
     const auto &key = plameta.first;
     const auto &parser = plameta.second;
 
-    std::string gameName = std::get<std::string>(parser["overview:name"]->getVariant());
-
+    std::string gameName = std::any_cast<std::string>(parser["overview:name"]->getValue());
+    std::cout << gameName.c_str() << "\n";
     /// Set child's window name to name received in `.plameta` file
     ImGui::BeginChild(gameName.c_str(),
                       ImVec2(GAME_ENTRY_WINDOW_WIDTH, GAME_ENTRY_WINDOW_HEIGHT),
-                      true);
+                      ImGuiChildFlags_Border);
 
     ImGui::PushFont(m_graphicalView.getFontManager().getFont("Roboto-Light-24px"));
     float gameNameWidth = ImGui::CalcTextSize(gameName.c_str()).x;

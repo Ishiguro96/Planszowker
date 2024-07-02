@@ -14,7 +14,7 @@ Entry::Entry(std::string key, std::string rawValue, EntryType type)
 }
 
 
-Entry::EntryVariant Entry::getVariant()
+Entry::EntryValue Entry::getValue()
 {
   if (m_type == EntryType::Int) {
     int returnVal {0};
@@ -23,21 +23,21 @@ Entry::EntryVariant Entry::getVariant()
     std::stringstream ss {m_rawValue};
     ss >> returnVal;
 
-    return EntryVariant {returnVal};
+    return EntryValue {returnVal};
   } else if (m_type == EntryType::Float) {
     float returnVal {0.f};
 
     std::stringstream ss {m_rawValue};
     ss >> returnVal;
 
-    return EntryVariant {returnVal};
+    return EntryValue {returnVal};
   } else if (m_type == EntryType::String) {
-    return EntryVariant {m_rawValue};
+    return EntryValue {m_rawValue};
   }
 
   // Throw error when type is not supported
   err_handler::ErrorLogger::throwError();
-  return EntryVariant {0};
+  return EntryValue {0};
 }
 
 } // Namespace

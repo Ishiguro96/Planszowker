@@ -2,7 +2,7 @@
 
 #include <string>
 #include <utility>
-#include <variant>
+#include <any>
 
 namespace pla::utils::plameta {
 
@@ -22,14 +22,14 @@ enum class EntryType : uint8_t {
 class Entry
 {
 public:
-  using EntryVariant = std::variant<int, float, std::string>;
+  using EntryValue = std::any;
 
   /*!
    * @brief Entry class constructor
    *
    * @param[in] key Entry's key. Entries are indexes by keys.
    * @param[in] rawValue Value read directly from `.plameta` file.
-   * @param[in] type Entry's type. It will be converted accoring to this type.
+   * @param[in] type Entry's type. It will be converted according to this type.
    */
   Entry(std::string key, std::string rawValue, EntryType type);
 
@@ -58,12 +58,12 @@ public:
   std::string getRaw() { return m_rawValue; }
 
   /*!
-   * @brief Get Entry's variant
+   * @brief Get Entry's value
    *
-   * @return Entry's variant (int, float, string, etc.).
+   * @return Entry's value as `std::any`.
    */
   [[nodiscard]]
-  EntryVariant getVariant();
+  EntryValue getValue();
 
 private:
   std::string m_key;

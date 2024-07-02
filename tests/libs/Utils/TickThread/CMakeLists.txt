@@ -1,13 +1,15 @@
+set(TEST_TARGET TickThreadTest)
+
 add_executable(
-        TickThreadTest
+        ${TEST_TARGET}
         TickThreadTest.cpp
 )
 target_link_libraries(
-        TickThreadTest
+        ${TEST_TARGET}
         PRIVATE TickThread
         GTest::gtest_main
         GTest::gmock_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(TickThreadTest)
+gtest_discover_tests(${TEST_TARGET})

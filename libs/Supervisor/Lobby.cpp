@@ -37,8 +37,8 @@ void Lobby::_extractGameMetadata()
       std::string gameShortKey = matches[1].str();
 
       if (gameShortKey == m_gameKey) {
-        m_minPlayers = std::get<int>(plametaParser["settings:min_players"]->getVariant());
-        m_maxPlayers = std::get<int>(plametaParser["settings:max_players"]->getVariant());
+        m_minPlayers = std::any_cast<int>(plametaParser["settings:min_players"]->getValue());
+        m_maxPlayers = std::any_cast<int>(plametaParser["settings:max_players"]->getValue());
         LOG(DEBUG) << "We are dealing with " << gameShortKey << " game [min: " << m_minPlayers << ", max: " << m_maxPlayers << "]";
         return;
       }

@@ -61,9 +61,9 @@ Supervisor::~Supervisor()
 void Supervisor::run()
 {
   auto entryPtr = m_configParser["config:port"];
-  std::cout << "[Config]:port = " << std::get<int>(entryPtr->getVariant()) << "\n";
+  std::cout << "[Config]:port = " << std::any_cast<int>(entryPtr->getValue()) << "\n";
 
-  std::size_t port = static_cast<size_t>(std::get<int>(entryPtr->getVariant()));
+  std::size_t port = static_cast<size_t>(std::any_cast<int>(entryPtr->getValue()));
   network::SupervisorPacketHandler supervisorPacketHandler {m_run, port};
   m_packetHandler = &supervisorPacketHandler;
 

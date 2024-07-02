@@ -20,3 +20,5 @@ target_include_directories(${LIB_NAME}
                              PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
                              PRIVATE headers/${LIB_NAME}
                            )
+
+target_compile_definitions(${LIB_NAME} PUBLIC ELPP_THREAD_SAFE)

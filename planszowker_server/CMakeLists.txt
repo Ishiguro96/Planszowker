@@ -30,8 +30,14 @@ file(COPY config.plameta DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(COPY scripts DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
         PATTERN "scripts/games/**" EXCLUDE)
 
+if (WIN32)
+  set(PYTHON_EXEC py -3)
+else()
+  set(PYTHON_EXEC python3)
+endif()
+
 add_custom_target(PackGames ALL
-        COMMAND py -3 ${CMAKE_CURRENT_SOURCE_DIR}/../python/pack_games.py ${CMAKE_CURRENT_BINARY_DIR}/scripts/games
+        COMMAND ${PYTHON_EXEC} ${CMAKE_CURRENT_SOURCE_DIR}/../python/pack_games.py ${CMAKE_CURRENT_BINARY_DIR}/scripts/games
         COMMENT "Packing games into .plagame files"
         DEPEND always_rebuild
         VERBATIM

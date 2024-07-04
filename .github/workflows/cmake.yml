@@ -1,35 +1,67 @@
-name: CMake Build with SFML
+name: CMake Docker Build
 
 on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master ]
+    types: [ opened, synchronize, reopened ]
 
 jobs:
   build:
-    runs-on: self-hosted
-    container:
-      image: ghcr.io/ishiguro96/ubuntu-planszowker:latest
-      credentials:
-        username: ishiguro96
-        password: ${{ secrets.DOCKER_ACTIONS }}
+    runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Create Build Environment
+      - name: Install dependencies
         shell: bash
-        run: mkdir -p build
+        run: |
+          sudo apt update && \
+          sudo apt install -y --no-install-recommends \
+          autoconf \
+          automake \
+          build-essential \
+          ca-certificates \
+          cmake \
+          curl \
+          g++ \
+          gcc \
+          git \
+          libgl1-mesa-dev \
+          libtool \
+          libudev-dev \
+          libx11-dev \
+          libxcursor-dev \
+          libxi-dev \
+          libxrandr-dev \
+          make \
+          ninja-build \
+          pkg-config \
+          python-is-python3 \
+          python3 \
+          python3-pip \
+          sudo \
+          tar \
+          unzip \
+          zip
+
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          ref: '#13-Kingdomino_game_adaptation' # For now, it is fixed to this branch. Remove it when master is ready
+
+      - name: Configure VCPKG
+        shell: bash
+        run: |
+          ./vcpkg/bootstrap-vcpkg.sh
+          export VCPKG_FORCE_SYSTEM_BINARIES=1
+          ./vcpkg/vcpkg install
 
       - name: Configure CMake
         shell: bash
-        working-directory: build
-        run: cmake .. -DCMAKE_BUILD_TYPE=Release
+        run: cmake -B ./build -S. -DCMAKE_BUILD_TYPE=Release --preset=default-linux
 
       - name: Build
         shell: bash
-        working-directory: build
-        run: cmake --build . --config Release
+        run: cmake --build ./build --config Release --parallel 32
 
       - name: Test
         shell: bash

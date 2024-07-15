@@ -24,9 +24,9 @@ Parser::Parser(std::stringstream plametaContent)
     std::regex sectionRegex {"^\\[(.+)\\]"}; // Match for [section]
     std::smatch results;
     if (std::regex_search(readLine, results, sectionRegex)) {
-      LOG(DEBUG) << "Previous section: " << currentSection;
+      // LOG(DEBUG) << "Previous section: " << currentSection;
       currentSection = results.str(1); // Change current key if new section has been encountered
-      LOG(DEBUG) << "New section: " << currentSection;
+      // LOG(DEBUG) << "New section: " << currentSection;
       continue;
     }
 
@@ -37,7 +37,7 @@ Parser::Parser(std::stringstream plametaContent)
       auto key = results.str(1);
       auto value = results.str(2);
 
-      LOG(DEBUG) << "Key <" << key << "> with value <" << value << ">";
+      // LOG(DEBUG) << "Key <" << key << "> with value <" << value << ">";
 
       // We should check if read entry is valid
       bool valid = false;
@@ -51,11 +51,11 @@ Parser::Parser(std::stringstream plametaContent)
       }
 
       if (valid) {
-        LOG(DEBUG) << "Found valid key <" << key << "> with value <" << value << ">. Adding new entry...";
+        // LOG(DEBUG) << "Found valid key <" << key << "> with value <" << value << ">. Adding new entry...";
 
         auto sectionIt = m_entries.find(currentSection);
         if (sectionIt == m_entries.end()) {
-          LOG(DEBUG) << "We don't have <" << currentSection << "> section in container. Creating one...";
+          // LOG(DEBUG) << "We don't have <" << currentSection << "> section in container. Creating one...";
           // If we don't have specific global section in container, we need to add it there
           auto [it, inserted] = m_entries.insert({currentSection, {}});
           if (inserted) {
@@ -67,7 +67,7 @@ Parser::Parser(std::stringstream plametaContent)
         }
 
         auto& keys = sectionIt->second;
-        LOG(DEBUG) << "\t > Pushing new entry [" << currentSection << "]:" << key << " with value: " << value;
+        // LOG(DEBUG) << "\t > Pushing new entry [" << currentSection << "]:" << key << " with value: " << value;
         auto entryPtr = std::make_shared<Entry>(key, value, type);
 
         keys.push_back(std::move(entryPtr));

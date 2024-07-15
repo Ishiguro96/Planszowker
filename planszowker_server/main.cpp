@@ -24,7 +24,7 @@ int main() {
 
   el::Configurations customConf;
   customConf.setToDefault();
-  customConf.set(el::Level::Debug, el::ConfigurationType::Format, "[%levshort, %loc]: %msg");
+  customConf.set(el::Level::Debug, el::ConfigurationType::Format, "[%levshort, %fbase:%line]: %msg");
   el::Loggers::reconfigureLogger("default", customConf);
 
   if (!configFile.is_open()) {

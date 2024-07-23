@@ -30,7 +30,7 @@ class Supervisor
 {
 public:
   Supervisor() = delete;
-  explicit Supervisor(std::stringstream configStream);
+  explicit Supervisor(std::stringstream&& configStream);
 
   ~Supervisor();
 

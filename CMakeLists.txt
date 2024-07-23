@@ -62,6 +62,7 @@ add_subdirectory(libs/GamesClient)
 add_subdirectory(libs/GamesServer)
 add_subdirectory(planszowker_client)
 add_subdirectory(planszowker_server)
+add_subdirectory(planszowker_designer)
 
 # Testing
 enable_testing()

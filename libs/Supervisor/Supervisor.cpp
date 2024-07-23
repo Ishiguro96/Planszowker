@@ -17,7 +17,7 @@ namespace pla::supervisor {
 using namespace games;
 using namespace games::json_entries;
 
-Supervisor::Supervisor(std::stringstream configStream)
+Supervisor::Supervisor(std::stringstream&& configStream)
   : m_configParser(std::move(configStream))
   , m_gameInstancesCheckingThread(std::jthread(&Supervisor::_gameInstancesCheckingThread, this))
 {
